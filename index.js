@@ -2,6 +2,7 @@ const gameBoard = document.querySelector("#gameBoard");
 const ctx = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const resetBtn = document.querySelector("#resetBtn");
+const chatBox = document.querySelector("chat")
 const gameWidth = gameBoard.width;
 const gameHeight = gameBoard.height;
 const boardBackground = "white";
@@ -23,6 +24,7 @@ let snake = [
     {x:0, y:0}
 ];
 
+// game mechanics 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
 
@@ -161,3 +163,25 @@ function resetGame(){
     ];
     gameStart();
 };
+
+// create a container for chat
+const chatInput = document.getElementById('chatInput');
+const chatMessages = document.getElementById('chatMessages');
+
+chatInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const text = chatInput.value.trim();
+    if (text === '') return;
+
+    // Create and append new message
+    const msg = document.createElement('p');
+    msg.textContent = text;
+    chatMessages.appendChild(msg);
+
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Clear input
+    chatInput.value = '';
+  }
+});
